@@ -1,46 +1,58 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-  AppstoreOutlined,
-  MailOutlined,
+  WifiOutlined,
+  GiftOutlined,
+  CrownOutlined,
+  NotificationOutlined,
   SettingOutlined,
+  HomeOutlined,
+  ExclamationCircleFilled,
 } from "@ant-design/icons";
 
-import { Layout, Menu, Button, theme } from "antd";
+import { Layout, Menu, Modal, theme } from "antd";
 
+const { confirm } = Modal;
 const { Header, Sider, Content } = Layout;
 
 import "./Layout.scss";
+import { useNavigate } from "react-router-dom";
 
 export default function () {
-  const [current] = useState("mail");
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!sessionStorage.getItem('token')) {
+      navigate("/")
+    }
+  }, []);
+  
+  
+  const [current, setCurrent] = useState("mail");
+
   // 顶部菜单项
   const items = [
     {
       label: "首页",
       key: "home",
-      icon: <MailOutlined />,
+      icon: <HomeOutlined />,
     },
     {
       label: "通知",
       key: "notice",
-      icon: <MailOutlined />,
+      icon: <NotificationOutlined />,
     },
     {
       label: "个人中心",
-      key: "SubMenu",
+      key: "personalCenter",
       icon: <SettingOutlined />,
       children: [
         {
-          key: "1",
+          key: "info",
           label: "个人信息",
         },
         {
-          key: "2",
+          key: "logout",
           label: "退出",
         },
       ],
@@ -50,21 +62,42 @@ export default function () {
   // 左侧菜单项
   const items2 = [
     {
-      key: "1",
-      icon: <UserOutlined />,
-      label: "转盘下单",
+      key: "turntable",
+      icon: <GiftOutlined />,
+      label: "幸运大转盘",
     },
     {
-      key: "2",
-      icon: <VideoCameraOutlined />,
-      label: "食谱管理",
+      key: "food",
+      icon: <CrownOutlined />,
+      label: "美食管理",
     },
     {
-      key: "3",
-      icon: <UploadOutlined />,
+      key: "order",
+      icon: <WifiOutlined />,
       label: "订单管理",
     },
   ];
+
+  const onClickMenu = (e) => {
+    switch (e.key) {
+      case "logout":
+        confirm({
+          title: "系统提示",
+          icon: <ExclamationCircleFilled />,
+          content: "确定退出系统吗",
+          okText: "确定",
+          cancelText: "取消",
+          onOk() {
+            // 清空token，退出，跳转到登录页
+            sessionStorage.clear();
+            localStorage.clear();
+            navigate("/");
+          },
+        });
+        break;
+    }
+    setCurrent(e.key);
+  };
 
   // 侧边栏折叠状态
   const [collapsed, setCollapsed] = useState(false);
@@ -76,9 +109,10 @@ export default function () {
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="logo">{collapsed ? "" : "食谱管理系统"}</div>
         <Menu
+          onClick={onClickMenu}
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={["1"]}
+          defaultSelectedKeys={[current]}
           items={items2}
         />
       </Sider>
@@ -93,6 +127,7 @@ export default function () {
           )}
 
           <Menu
+            onClick={onClickMenu}
             theme="dark"
             className="menu"
             selectedKeys={[current]}
