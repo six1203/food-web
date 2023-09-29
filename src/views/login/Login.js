@@ -1,19 +1,25 @@
 import React, {useState} from "react";
+import {useNavigate} from "react-router-dom";
 import "./Login.scss"
 import {Button, Form, Input} from 'antd';
 import {$login} from "../../api/adminApi"
 import Notice from "../../components/notice/notice"
 
 export default function Login() {
+    // 导航
+    let navigate = useNavigate()
+    // 通知框
     let [noticeMsg, setNoticeMsg] = useState({type: "", description: ""})
-
+    // 表单
     const [form] = Form.useForm();
-
+    // 表单成功提交的方法
     const onFinish = async (values) => {
         // TODO 修改接口的返回值，加上message, success字段
         let {userInfo} = await $login(values)
         if (userInfo) {
             setNoticeMsg({type: 'success', description: "登录成功"})
+            // 跳转到首页
+            navigate('/layout')
         } else {
             setNoticeMsg({type: 'error', description: "登录失败"})
         }
