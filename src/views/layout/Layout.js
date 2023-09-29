@@ -17,17 +17,16 @@ const { confirm } = Modal;
 const { Header, Sider, Content } = Layout;
 
 import "./Layout.scss";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
 
 export default function () {
   const navigate = useNavigate();
   useEffect(() => {
-    if (!sessionStorage.getItem('token')) {
-      navigate("/")
+    if (!sessionStorage.getItem("token")) {
+      navigate("/");
     }
   }, []);
-  
-  
+
   const [current, setCurrent] = useState("mail");
 
   // 顶部菜单项
@@ -67,9 +66,19 @@ export default function () {
       label: "幸运大转盘",
     },
     {
-      key: "food",
+      key: "foodPlaza",
       icon: <CrownOutlined />,
-      label: "美食管理",
+      label: "美食广场",
+      children: [
+        {
+          key: "food",
+          label: "收藏门店",
+        },
+        {
+          key: "cookbook",
+          label: "家常菜谱",
+        },
+      ],
     },
     {
       key: "order",
@@ -80,6 +89,9 @@ export default function () {
 
   const onClickMenu = (e) => {
     switch (e.key) {
+      case "food":
+        navigate("/layout/food");
+        break;
       case "logout":
         confirm({
           title: "系统提示",
@@ -135,7 +147,9 @@ export default function () {
             items={items}
           />
         </Header>
-        <Content className="content">Content</Content>
+        <Content className="content">
+          <Outlet></Outlet>
+        </Content>
       </Layout>
     </Layout>
   );
