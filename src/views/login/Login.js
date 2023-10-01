@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.scss";
 import { Button, Form, Input } from "antd";
-import { $login } from "../../api/adminApi";
+import { $login } from "../../api/userApi";
 import Notice from "../../components/notice/notice";
 
 export default function Login() {
@@ -22,11 +22,11 @@ export default function Login() {
   // 表单成功提交的方法
   const onFinish = async (values) => {
     // TODO 修改接口的返回值，加上message, success字段
-    let { userInfo } = await $login(values);
-    if (userInfo) {
+    let { code } = await $login(values);
+    if (code === 200) {
       setNoticeMsg({ type: "success", description: "登录成功" });
       // 跳转到首页
-      navigate("/layout");
+      navigate("/layout/food");
     } else {
       setNoticeMsg({ type: "error", description: "登录失败" });
     }

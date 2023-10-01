@@ -71,7 +71,7 @@ export default function () {
       label: "美食广场",
       children: [
         {
-          key: "food",
+          key: "Food",
           label: "收藏门店",
         },
         {
@@ -89,7 +89,7 @@ export default function () {
 
   const onClickMenu = (e) => {
     switch (e.key) {
-      case "food":
+      case "Food":
         navigate("/layout/food");
         break;
       case "logout":
