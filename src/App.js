@@ -3,7 +3,7 @@ import {BrowserRouter,Routes,Route} from 'react-router-dom'
 // 导入页面组件
 import Login from "./views/login/Login";
 import Layout from "./views/layout/Layout";
-import Food from "./views/Food/Food";
+import Food from "./views/food/Food";
 
 function App() {
   return (
