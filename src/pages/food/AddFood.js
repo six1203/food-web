@@ -1,72 +1,50 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from 'react';
 
-import {Table, Button, Drawer, Form, Input, Checkbox} from 'antd';
-import {$listCollectionShop} from "../../api/foodApi"
-import "./Food.scss"
+import {Button, Drawer, Form, Input } from 'antd';
+import './Food.scss';
+import Notice from '../../components/notice/notice';
+import {$addCollectionShop} from "../../api/foodApi";
 
-export default function Food() {
-    let [shopList, setShopList] = useState([])
-    const [open, setOpen] = useState(false);
-    const showDrawer = () => {
-        setOpen(true);
-    };
-    const onClose = () => {
-        setOpen(false);
-    };
-    useEffect(() => {
-        $listCollectionShop().then(data=> {
-            data = data.data.data.map(r=> {
-                return {
-                    ...r,
-                    key: r.id
-                }
-            })
-            setShopList(data)
-        })
-    }, [])
-
-    const columns = [
-        {
-            title: '美食分类',
-            dataIndex: 'category',
-            key: 'category',
-        },
-        {
-            title: '名称',
-            dataIndex: 'name',
-            key: 'name',
-        },
-        {
-            title: '门店logo',
-            dataIndex: 'logo',
-            key: 'logo',
-        },
-        {
-            title: '地址',
-            dataIndex: 'address',
-            key: 'address',
-        },
-        {
-            title: '收藏时间',
-            dataIndex: 'createdAt',
-            key: 'createdAt',
-        },
-    ];
-
+export default function AddFood({open, setOpen, loadList}) {
+    let [form] = Form.useForm();
+    // 通知框
+    let [noticeMsg, setNoticeMsg] = useState({ type: '', description: '' });
 
     const onFinish = (values) => {
-        console.log('Success:', values);
-    };
+        $addCollectionShop(values).then(({ code, message }) => {
+          if (code == 200) {
+            setNoticeMsg({ type: 'success', description: message });
+            clear();
+            loadList();
+          } else {
+            setNoticeMsg({ type: 'error', description: message });
+          }
+        });
+      };
 
-
+    const onClose = () => {
+        clear();
+        setOpen(false);
+      };
+    
+    const clear = () => {
+        form.resetFields();
+        setOpen(false)
+      };
+    
+    
     return (
         <>
-            <div className="search">
-                <Button onClick={()=>setOpen(true)}>添加</Button>
-            </div>
-            <Drawer title="添加喜欢的门店" width={400} placement="right" onClose={onClose} open={open}>
+            <Drawer
+                title="添加喜欢的门店"
+                width={400}
+                placement="right"
+                onClose={onClose}
+                open={open}
+            >
                 <Form
                     name="basic"
+                    form={form}
                     labelCol={{
                         span: 8,
                     }}
@@ -134,7 +112,6 @@ export default function Food() {
                         <Input />
                     </Form.Item>
 
-
                     <Form.Item
                         wrapperCol={{
                             offset: 8,
@@ -144,14 +121,16 @@ export default function Food() {
                         <Button type="primary" htmlType="submit">
                             添加
                         </Button>
-                        <Button style={{marginLeft: "10px"}}>
+                        <Button onClick={clear} style={{ marginLeft: '10px' }}>
                             取消
                         </Button>
                     </Form.Item>
                 </Form>
             </Drawer>
-            <Table dataSource={shopList} columns={columns}/>
-        </>
+            <div>
+                <Notice noticeMsg={noticeMsg} />
+            </div>
 
+        </>
     )
 }
