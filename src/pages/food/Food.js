@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 
-import { Table, Button, Popconfirm, Pagination } from 'antd';
+import { Table, Button, Popconfirm, Pagination, Input } from 'antd';
+const { Search } = Input;
 import { $listCollectionShop, $removeCollectionShop } from '../../api/foodApi';
 import './Food.scss';
 import AddFood from './AddFood';
 import Notice from '../../components/notice/notice';
 
 export default function Food() {
-  let defaultPageSize = 2;
+  let defaultPageSize = 20;
   let [count, setCount] = useState(0);
   let [pageIndex, setPageIndex] = useState(1);
+  let [fuzzySearchText, setFuzzySearchText] = useState('');
+
   let [shopList, setShopList] = useState([]);
   // 通过shopId是否有值来判断是否进入编辑状态，有值就是编辑状态，没有值就是新增状态
   let [shopId, setShopId] = useState(0);
@@ -18,22 +21,24 @@ export default function Food() {
   const [open, setOpen] = useState(false);
   useEffect(() => {
     loadList();
-  }, [pageIndex]);
+  }, [pageIndex, fuzzySearchText]);
   const loadList = () => {
-    $listCollectionShop({ page: pageIndex, pageSize: defaultPageSize }).then(
-      (data) => {
-        let obj = data.data;
-        data = obj.data.map((r) => {
-          return {
-            ...r,
-            key: r.id,
-          };
-        });
-        count = obj.total;
-        setShopList(data);
-        setCount(count);
-      },
-    );
+    $listCollectionShop({
+      page: pageIndex,
+      pageSize: defaultPageSize,
+      fuzzySearchText: fuzzySearchText,
+    }).then((data) => {
+      let obj = data.data;
+      data = obj.data.map((r) => {
+        return {
+          ...r,
+          key: r.id,
+        };
+      });
+      count = obj.total;
+      setShopList(data);
+      setCount(count);
+    });
   };
   // 移除收藏门店
   const remove = (shopId) => {
@@ -143,13 +148,47 @@ export default function Food() {
 
   return (
     <>
-      <div className="search">
-        <Button onClick={() => setOpen(true)}>添加</Button>
+      <div
+        className="search"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'flex-start',
+        }}
+      >
+        <Search
+          placeholder="输入美食分类/名称/地址搜索"
+          enterButton="Search"
+          size="large"
+          style={{ width: '400px', height: '40px' }}
+          onPressEnter={(e) => {
+            setFuzzySearchText(e.target.value);
+          }}
+          onSearch={(value) => {
+            setFuzzySearchText(value);
+          }}
+        />
+        <div >
+          <Button
+            onClick={() => setOpen(true)}
+            style={{
+              marginLeft: '25px',
+              height: '40px',
+              width: '80px',
+              defaultBg: '#5794f7'
+            }}
+
+          >
+            添加
+          </Button>
+        </div>
       </div>
       <Table
+        // style={{ marginTop: '10px' }}
         dataSource={shopList}
         columns={columns}
         pagination={false}
+        // footer 表格尾部
         footer={() => (
           <div style={{ textAlign: 'right' }}>
             <Pagination
@@ -165,16 +204,6 @@ export default function Food() {
           </div>
         )}
       />
-      {/* <Pagination
-        size="small"
-        total={count}
-        showTotal={(total) => `总共 ${total} 条`}
-        defaultPageSize={defaultPageSize}
-        defaultCurrent={pageIndex}
-        onChange={(page) => {
-          setPageIndex(page);
-        }}
-      /> */}
       <AddFood
         open={open}
         setOpen={setOpen}
