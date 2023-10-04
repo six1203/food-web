@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -9,50 +9,50 @@ import {
   SettingOutlined,
   HomeOutlined,
   ExclamationCircleFilled,
-} from "@ant-design/icons";
+} from '@ant-design/icons';
 
-import { Layout, Menu, Modal, theme } from "antd";
+import { Layout, Menu, Modal, theme } from 'antd';
 
 const { confirm } = Modal;
 const { Header, Sider, Content } = Layout;
 
-import "./Layout.scss";
-import { useNavigate, Outlet } from "react-router-dom";
+import './Layout.scss';
+import { useNavigate, Outlet } from 'react-router-dom';
 
 export default function () {
   const navigate = useNavigate();
   useEffect(() => {
-    if (!sessionStorage.getItem("token")) {
-      navigate("/");
+    if (!sessionStorage.getItem('token')) {
+      navigate('/');
     }
   }, []);
 
-  const [current, setCurrent] = useState("mail");
+  const [current, setCurrent] = useState('mail');
 
   // 顶部菜单项
   const items = [
     {
-      label: "首页",
-      key: "home",
+      label: '首页',
+      key: 'home',
       icon: <HomeOutlined />,
     },
     {
-      label: "通知",
-      key: "notice",
+      label: '通知',
+      key: 'notice',
       icon: <NotificationOutlined />,
     },
     {
-      label: "个人中心",
-      key: "personalCenter",
+      label: '个人中心',
+      key: 'personalCenter',
       icon: <SettingOutlined />,
       children: [
         {
-          key: "info",
-          label: "个人信息",
+          key: 'info',
+          label: '个人信息',
         },
         {
-          key: "logout",
-          label: "退出",
+          key: 'logout',
+          label: '退出',
         },
       ],
     },
@@ -61,49 +61,49 @@ export default function () {
   // 左侧菜单项
   const items2 = [
     {
-      key: "turntable",
+      key: 'turntable',
       icon: <GiftOutlined />,
-      label: "幸运大转盘",
+      label: '幸运大转盘',
     },
     {
-      key: "foodPlaza",
+      key: 'foodPlaza',
       icon: <CrownOutlined />,
-      label: "美食广场",
+      label: '美食广场',
       children: [
         {
-          key: "food",
-          label: "收藏门店",
+          key: 'food',
+          label: '收藏门店',
         },
         {
-          key: "cookbook",
-          label: "家常菜谱",
+          key: 'cookbook',
+          label: '家常菜谱',
         },
       ],
     },
     {
-      key: "order",
+      key: 'order',
       icon: <WifiOutlined />,
-      label: "订单管理",
+      label: '订单管理',
     },
   ];
 
   const onClickMenu = (e) => {
     switch (e.key) {
-      case "food":
-        navigate("/layout/food");
+      case 'food':
+        navigate('/layout/food');
         break;
-      case "logout":
+      case 'logout':
         confirm({
-          title: "系统提示",
+          title: '系统提示',
           icon: <ExclamationCircleFilled />,
-          content: "确定退出系统吗",
-          okText: "确定",
-          cancelText: "取消",
+          content: '确定退出系统吗',
+          okText: '确定',
+          cancelText: '取消',
           onOk() {
             // 清空token，退出，跳转到登录页
             sessionStorage.clear();
             localStorage.clear();
-            navigate("/");
+            navigate('/');
           },
         });
         break;
@@ -119,7 +119,7 @@ export default function () {
   return (
     <Layout className="layout">
       <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo">{collapsed ? "" : "食谱管理系统"}</div>
+        <div className="logo">{collapsed ? '' : '食谱管理系统'}</div>
         <Menu
           onClick={onClickMenu}
           theme="dark"
@@ -133,7 +133,7 @@ export default function () {
           {React.createElement(
             collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
             {
-              className: "trigger",
+              className: 'trigger',
               onClick: () => setCollapsed(!collapsed),
             },
           )}

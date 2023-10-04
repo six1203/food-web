@@ -8,7 +8,7 @@ export default function Notice({ noticeMsg }) {
       api[noticeMsg.type]({
         message: '系统提示',
         description: noticeMsg.description,
-        duration: 3,
+        duration: 2,
       });
     }
   }, [noticeMsg]);

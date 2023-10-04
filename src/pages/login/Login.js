@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "./Login.scss";
-import { Button, Form, Input } from "antd";
-import { $login } from "../../api/userApi";
-import Notice from "../../components/notice/notice";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './Login.scss';
+import { Button, Form, Input } from 'antd';
+import { $login } from '../../api/userApi';
+import Notice from '../../components/notice/notice';
 
 export default function Login() {
   // 导航
   let navigate = useNavigate();
 
   useEffect(() => {
-    if (sessionStorage.getItem("token")) {
-      navigate("/layout");
+    if (sessionStorage.getItem('token')) {
+      navigate('/layout');
     }
   }, []);
 
   // 通知框
-  let [noticeMsg, setNoticeMsg] = useState({ type: "", description: "" });
+  let [noticeMsg, setNoticeMsg] = useState({ type: '', description: '' });
   // 表单
   const [form] = Form.useForm();
   // 表单成功提交的方法
@@ -24,11 +24,11 @@ export default function Login() {
     // TODO 修改接口的返回值，加上message, success字段
     let { code } = await $login(values);
     if (code === 200) {
-      setNoticeMsg({ type: "success", description: "登录成功" });
+      setNoticeMsg({ type: 'success', description: '登录成功' });
       // 跳转到首页
-      navigate("/layout/food");
+      navigate('/layout/food');
     } else {
-      setNoticeMsg({ type: "error", description: "登录失败" });
+      setNoticeMsg({ type: 'error', description: '登录失败' });
     }
   };
   return (
@@ -44,8 +44,8 @@ export default function Login() {
             span: 18,
           }}
           initialValues={{
-            username: "",
-            password: "",
+            username: '',
+            password: '',
           }}
           onFinish={onFinish}
           autoComplete="off"
@@ -57,7 +57,7 @@ export default function Login() {
             rules={[
               {
                 required: true,
-                message: "请输入账号",
+                message: '请输入账号',
               },
             ]}
           >
@@ -70,7 +70,7 @@ export default function Login() {
             rules={[
               {
                 required: true,
-                message: "请输入密码",
+                message: '请输入密码',
               },
             ]}
           >
@@ -90,7 +90,7 @@ export default function Login() {
               onClick={() => {
                 form.resetFields();
               }}
-              style={{ marginLeft: "10px" }}
+              style={{ marginLeft: '10px' }}
             >
               取消
             </Button>
