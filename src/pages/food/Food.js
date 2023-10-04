@@ -1,30 +1,39 @@
 import React, { useEffect, useState } from 'react';
 
-import { Table, Button, Popconfirm } from 'antd';
+import { Table, Button, Popconfirm, Pagination } from 'antd';
 import { $listCollectionShop, $removeCollectionShop } from '../../api/foodApi';
 import './Food.scss';
 import AddFood from './AddFood';
 import Notice from '../../components/notice/notice';
 
 export default function Food() {
+  let defaultPageSize = 2;
+  let [count, setCount] = useState(0);
+  let [pageIndex, setPageIndex] = useState(1);
   let [shopList, setShopList] = useState([]);
+  // 通过shopId是否有值来判断是否进入编辑状态，有值就是编辑状态，没有值就是新增状态
   let [shopId, setShopId] = useState(0);
   // 通知框
   let [noticeMsg, setNoticeMsg] = useState({ type: '', description: '' });
   const [open, setOpen] = useState(false);
   useEffect(() => {
     loadList();
-  }, []);
+  }, [pageIndex]);
   const loadList = () => {
-    $listCollectionShop().then((data) => {
-      data = data.data.data.map((r) => {
-        return {
-          ...r,
-          key: r.id,
-        };
-      });
-      setShopList(data);
-    });
+    $listCollectionShop({ page: pageIndex, pageSize: defaultPageSize }).then(
+      (data) => {
+        let obj = data.data;
+        data = obj.data.map((r) => {
+          return {
+            ...r,
+            key: r.id,
+          };
+        });
+        count = obj.total;
+        setShopList(data);
+        setCount(count);
+      },
+    );
   };
   // 移除收藏门店
   const remove = (shopId) => {
@@ -137,7 +146,35 @@ export default function Food() {
       <div className="search">
         <Button onClick={() => setOpen(true)}>添加</Button>
       </div>
-      <Table dataSource={shopList} columns={columns} />
+      <Table
+        dataSource={shopList}
+        columns={columns}
+        pagination={false}
+        footer={() => (
+          <div style={{ textAlign: 'right' }}>
+            <Pagination
+              size="small"
+              total={count}
+              showTotal={(total) => `总共 ${total} 条`}
+              defaultPageSize={defaultPageSize}
+              defaultCurrent={pageIndex}
+              onChange={(page) => {
+                setPageIndex(page);
+              }}
+            />
+          </div>
+        )}
+      />
+      {/* <Pagination
+        size="small"
+        total={count}
+        showTotal={(total) => `总共 ${total} 条`}
+        defaultPageSize={defaultPageSize}
+        defaultCurrent={pageIndex}
+        onChange={(page) => {
+          setPageIndex(page);
+        }}
+      /> */}
       <AddFood
         open={open}
         setOpen={setOpen}
