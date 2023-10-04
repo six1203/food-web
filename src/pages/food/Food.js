@@ -184,7 +184,8 @@ export default function Food() {
         </div>
       </div>
       <Table
-        // style={{ marginTop: '10px' }}
+        bordered={true}
+        size='small'
         dataSource={shopList}
         columns={columns}
         pagination={false}
