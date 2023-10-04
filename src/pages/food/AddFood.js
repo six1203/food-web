@@ -19,22 +19,26 @@ export default function AddFood({
   let [form] = Form.useForm();
   // 通知框
   let [noticeMsg, setNoticeMsg] = useState({ type: '', description: '' });
-  const [star, setStar] = useState(1);
+  const [star, setStar] = useState(0);
 
   // 监听shopId变化，如果变了，代表是编辑状态，初始值为0
   useEffect(() => {
     if (shopId !== 0) {
       $getCollectionShopById({ shopId }).then((data) => {
-        form.setFieldsValue(data.data.collectionShop);
+        const initialValues = data.data.collectionShop;
+        form.setFieldsValue(initialValues);
+        setStar(initialValues.star);
       });
     }
-  }, [shopId]);
+  }, [shopId, form]);
 
   const onFinish = (values) => {
+
     if (shopId !== 0) {
       $updateCollectionShopById(values).then(({ code, message }) => {
         if (code == 200) {
           setNoticeMsg({ type: 'success', description: message });
+          onClose();
           loadList();
         } else {
           setNoticeMsg({ type: 'error', description: message });
@@ -44,7 +48,7 @@ export default function AddFood({
       $addCollectionShop(values).then(({ code, message }) => {
         if (code == 200) {
           setNoticeMsg({ type: 'success', description: message });
-          clear();
+          onClose();
           loadList();
         } else {
           setNoticeMsg({ type: 'error', description: message });
@@ -57,6 +61,7 @@ export default function AddFood({
     clear(); // 清空表单
     setShopId(0); // 取消编辑状态
     setOpen(false); // 关闭抽屉
+    setStar(0); // 清空星星
   };
 
   const clear = () => {
@@ -143,21 +148,15 @@ export default function AddFood({
             <Input />
           </Form.Item>
 
-          <Form.Item
-            label="喜爱程度"
-            name="star"
-            rules={[
-              {
-                required: true,
-                message: '请选择对它的喜欢程度',
-              },
-            ]}
-          >
+          <Form.Item label="喜爱程度" name="star">
             <span>
               <Rate
                 tooltips={desc}
                 value={star}
-                onChange={setStar}
+                onChange={(value) => {
+                  setStar(value);
+                  form.setFieldsValue({ star: value }); // 手动更新表单字段
+                }}
                 defaultValue={1}
               />
               {star ? (
