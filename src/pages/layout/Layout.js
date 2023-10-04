@@ -92,10 +92,10 @@ export default function () {
       case 'food':
         navigate('/layout/food');
         break;
-      
+
       case 'cookbook':
-        navigate('/layout/cookbook')
-        break
+        navigate('/layout/cookbook');
+        break;
       case 'logout':
         confirm({
           title: '系统提示',

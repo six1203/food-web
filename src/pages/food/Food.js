@@ -168,16 +168,15 @@ export default function Food() {
             setFuzzySearchText(value);
           }}
         />
-        <div >
+        <div>
           <Button
             onClick={() => setOpen(true)}
             style={{
               marginLeft: '25px',
               height: '40px',
               width: '80px',
-              defaultBg: '#5794f7'
+              defaultBg: '#5794f7',
             }}
-
           >
             添加
           </Button>
@@ -185,7 +184,7 @@ export default function Food() {
       </div>
       <Table
         bordered={true}
-        size='small'
+        size="small"
         dataSource={shopList}
         columns={columns}
         pagination={false}

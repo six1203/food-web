@@ -33,7 +33,6 @@ export default function AddFood({
   }, [shopId, form]);
 
   const onFinish = (values) => {
-
     if (shopId !== 0) {
       $updateCollectionShopById(values).then(({ code, message }) => {
         if (code == 200) {
