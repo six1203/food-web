@@ -15,6 +15,5 @@ golang mysql kratos protobuf
 https://github.com/six1203/food-server
 
 # 项目截图
-
-![Uploading WechatIMG7.jpg…]()
+https://github.com/six1203/food-web/blob/main/public/WechatIMG7.jpg
 
