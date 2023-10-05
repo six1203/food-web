@@ -158,7 +158,7 @@ export default function Food() {
       >
         <Search
           placeholder="输入美食分类/名称/地址搜索"
-          enterButton="Search"
+          enterButton="搜索"
           size="large"
           style={{ width: '400px', height: '40px' }}
           onPressEnter={(e) => {
@@ -174,9 +174,9 @@ export default function Food() {
             style={{
               marginLeft: '25px',
               height: '40px',
-              width: '80px',
-              defaultBg: '#5794f7',
+              width: '70px',
             }}
+            type="primary"
           >
             添加
           </Button>
