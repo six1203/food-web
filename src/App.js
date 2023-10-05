@@ -9,7 +9,6 @@ import Wheel from './pages/wheel/Wheel';
 import Order from './pages/order/order';
 
 function App() {
-  
   return (
     <BrowserRouter>
       <Routes>

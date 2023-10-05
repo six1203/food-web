@@ -121,7 +121,7 @@ export default function Food() {
         <>
           <Button
             size="small"
-            style={{ borderColor: 'orange', color: 'orange' }}
+            style={{ borderColor: 'white', color: 'white' }}
             onClick={() => {
               edit(ret.id);
             }}
@@ -137,7 +137,10 @@ export default function Food() {
             okText="确定"
             cancelText="取消"
           >
-            <Button danger size="small" style={{ marginLeft: '5px' }}>
+            <Button
+              size="small"
+              style={{ marginLeft: '5px', color: '#696165' }}
+            >
               删除
             </Button>
           </Popconfirm>

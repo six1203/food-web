@@ -122,16 +122,16 @@ export default function () {
 
   // 侧边栏折叠状态
   const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
+  // const {
+  //   token: { colorBgContainer },
+  // } = theme.useToken();
   return (
     <Layout className="layout">
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="logo">{collapsed ? '' : '食谱管理系统'}</div>
         <Menu
           onClick={onClickMenu}
-          theme="dark"
+          // theme="dark"
           mode="inline"
           defaultSelectedKeys={[current]}
           items={items2}
@@ -149,7 +149,7 @@ export default function () {
 
           <Menu
             onClick={onClickMenu}
-            theme="dark"
+            // theme="dark"
             className="menu"
             selectedKeys={[current]}
             mode="horizontal"

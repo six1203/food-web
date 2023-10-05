@@ -1,5 +1,6 @@
 import React from 'react';
+import './Cookbook.scss';
 
 export default function Cookbook() {
-  return <div>努力施工中...🍗</div>;
+  return <div className="container">努力施工中...🍗</div>;
 }
