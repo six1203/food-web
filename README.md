@@ -12,7 +12,9 @@ golang mysql kratos protobuf
 
 ## 后端项目地址
 
-git@github.com:six1203/food-server.git
+https://github.com/six1203/food-server
+
+# 项目截图
 
 ![Uploading WechatIMG7.jpg…]()
 
