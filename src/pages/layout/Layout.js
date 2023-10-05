@@ -61,7 +61,7 @@ export default function () {
   // 左侧菜单项
   const items2 = [
     {
-      key: 'turntable',
+      key: 'wheel',
       icon: <GiftOutlined />,
       label: '幸运大转盘',
     },
@@ -89,12 +89,17 @@ export default function () {
 
   const onClickMenu = (e) => {
     switch (e.key) {
+      case 'wheel':
+        navigate('/layout/wheel');
+        break;
       case 'food':
         navigate('/layout/food');
         break;
-
       case 'cookbook':
         navigate('/layout/cookbook');
+        break;
+      case 'order':
+        navigate('/layout/order');
         break;
       case 'logout':
         confirm({
