@@ -17,6 +17,7 @@ root.render(
           // colorPrimary: '#F5DAE3',
           // 控制按钮的颜色
           colorPrimary: '#FFDFDD',
+          colorPrimary: '#3ba0e9',
           // 控制选中列表行的数据背景色
           colorFillQuaternary: '#F5DAE3',
           colorBgBase: '#FFB7CC',

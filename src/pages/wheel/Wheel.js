@@ -1,62 +1,56 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Layout, Space } from 'antd';
+import './Wheel.scss';
 
-class Wheel extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      spinning: false,
-      selectedPrize: null,
-    };
-    this.prizes = [
-      '奖品1',
-      '奖品2',
-      '奖品3',
-      '奖品4',
-      '奖品5',
-      '奖品6',
-      '奖品7',
-      '奖品8',
-      '奖品9',
-      '奖品10',
-    ];
-  }
+const { Header, Footer, Sider, Content } = Layout;
 
-  startSpinning = () => {
-    if (!this.state.spinning) {
-      const selectedPrize =
-        this.prizes[Math.floor(Math.random() * this.prizes.length)];
+const headerStyle = {
+  textAlign: 'center',
+  color: '#fff',
+  height: 64,
+  backgroundColor: '#7dbcea',
+};
+const contentStyle = {
+  textAlign: 'center',
+  height: '561px',
+  color: '#fff',
+  backgroundColor: '#108ee9',
+};
+const siderStyle = {
+  textAlign: 'center',
+  height: '120px',
+  color: '#fff',
+  backgroundColor: '#3ba0e9',
+};
+const footerStyle = {
+  textAlign: 'center',
+  color: '#fff',
+  backgroundColor: '#7dbcea',
+  height: '64px',
+};
 
-      this.setState({ spinning: true });
-
-      setTimeout(() => {
-        this.setState({ selectedPrize, spinning: false });
-      }, 5000); // 模拟5秒内的旋转动画
-    }
-  };
-
-  render() {
-    const { spinning, selectedPrize } = this.state;
-
-    return (
-      <div>
-        <div className={`wheel ${spinning ? 'spinning' : ''}`}>
-          <div className="wheel-container">
-            {this.prizes.map((prize, index) => (
-              <div key={index} className={`wheel-segment segment-${index}`}>
-                {prize}
-              </div>
-            ))}
-          </div>
-          <div className="pointer" onClick={this.startSpinning}>
-            点击抽奖
-          </div>
-        </div>
-        <div className="prize">
-          {selectedPrize && <p>恭喜您获得：{selectedPrize}</p>}
-        </div>
-      </div>
-    );
-  }
+export default function Wheel() {
+  return (
+    <Space
+      direction="vertical"
+      style={{
+        width: '100%',
+      }}
+      size={[0, 48]}
+    >
+      <Layout>
+        <Layout>
+          <Header style={headerStyle}>
+            《《距离吃饭只有一步之遥哦》》
+            {/* <span  style={{textAlign: 'center'}}>今日还有2次机会抽奖</span> */}
+          </Header>
+          <Content style={contentStyle}>
+            转盘转动随机选择一款你的心动食物
+          </Content>
+          <Footer style={footerStyle}>点击下单</Footer>
+        </Layout>
+        <Sider style={siderStyle}>切换视角</Sider>
+      </Layout>
+    </Space>
+  );
 }
-
-export default Wheel;
