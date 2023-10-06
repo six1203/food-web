@@ -161,10 +161,10 @@ export default function Food() {
       >
         <Search
           placeholder="输入美食分类/名称/地址搜索"
-          enterButton="搜索"
+          // enterButton=""
           size="large"
           style={{
-            width: '400px',
+            width: '313px',
             height: '40px',
           }}
           onPressEnter={(e) => {
@@ -173,7 +173,6 @@ export default function Food() {
           onSearch={(value) => {
             setFuzzySearchText(value);
           }}
-          // bordered={false}
         />
         <Button
           onClick={() => setOpen(true)}
@@ -182,7 +181,8 @@ export default function Food() {
             height: '40px',
             width: '62px',
             border: '0.1px solid white',
-            boxShadow: 'none'
+            boxShadow: 'none',
+            color: 'black',
           }}
           type="primary"
         >

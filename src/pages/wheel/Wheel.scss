@@ -1,0 +1,58 @@
+/* 转盘的样式 */
+.wheel {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+  transition: transform 5s ease-in-out;
+  border: '1px solid red';
+}
+
+/* 动画旋转时的样式 */
+.wheel.spinning {
+  transform: rotate(7200deg); /* 控制旋转的角度，这里是7200度，可根据需要调整 */
+}
+
+/* 指针的样式 */
+.pointer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  background-color: red;
+  border-radius: 50%;
+  cursor: pointer;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+  font-weight: bold;
+}
+
+/* 奖品显示区域的样式 */
+.prize {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* 每个扇形区域的样式 */
+.wheel-segment {
+  width: 0;
+  height: 0;
+  position: absolute;
+  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+  transform-origin: 50% 100%;
+}
+
+.segment-0 {
+  background-color: #ff5733;
+  transform: rotate(0deg);
+}
+
+.segment-1 {
+  background-color: #33ff57;
+  transform: rotate(36deg);
+}
+
+/* 继续为每个扇形区域添加不同的样式 */

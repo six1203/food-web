@@ -94,7 +94,11 @@ export default function Login() {
               onClick={() => {
                 form.resetFields();
               }}
-              style={{ marginLeft: '10px', border: '0.1px solid white', color: 'white' }}
+              style={{
+                marginLeft: '10px',
+                border: '0.1px solid white',
+                color: 'white',
+              }}
             >
               取消
             </Button>

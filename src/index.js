@@ -15,11 +15,12 @@ root.render(
       theme={{
         token: {
           // colorPrimary: '#F5DAE3',
-          colorPrimary: '#FFB7CC',
+          // 控制按钮的颜色
+          colorPrimary: '#FFDFDD',
+          // 控制选中列表行的数据背景色
           colorFillQuaternary: '#F5DAE3',
           colorBgBase: '#FFB7CC',
           colorBgLayout: '#FFB7CC',
-          colorBgElevated: '#FFB7CC',
         },
       }}
     >
