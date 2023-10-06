@@ -157,7 +157,7 @@ export default function AddFood({
                   form.setFieldsValue({ star: value }); // 手动更新表单字段
                 }}
                 defaultValue={1}
-                style={{ color: 'yellow' }}
+                style={{ color: '#1B3CFB' }}
               />
               {star ? (
                 <span className="ant-rate-text">{desc[star - 1]}</span>

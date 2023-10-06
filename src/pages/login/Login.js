@@ -83,14 +83,18 @@ export default function Login() {
               span: 16,
             }}
           >
-            <Button type="primary" htmlType="submit">
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={{ border: '0.1px solid white' }}
+            >
               登录
             </Button>
             <Button
               onClick={() => {
                 form.resetFields();
               }}
-              style={{ marginLeft: '10px' }}
+              style={{ marginLeft: '10px', border: '0.1px solid white', color: 'white' }}
             >
               取消
             </Button>

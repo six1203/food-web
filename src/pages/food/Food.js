@@ -163,27 +163,31 @@ export default function Food() {
           placeholder="输入美食分类/名称/地址搜索"
           enterButton="搜索"
           size="large"
-          style={{ width: '400px', height: '40px' }}
+          style={{
+            width: '400px',
+            height: '40px',
+          }}
           onPressEnter={(e) => {
             setFuzzySearchText(e.target.value);
           }}
           onSearch={(value) => {
             setFuzzySearchText(value);
           }}
+          // bordered={false}
         />
-        <div>
-          <Button
-            onClick={() => setOpen(true)}
-            style={{
-              marginLeft: '25px',
-              height: '40px',
-              width: '70px',
-            }}
-            type="primary"
-          >
-            添加
-          </Button>
-        </div>
+        <Button
+          onClick={() => setOpen(true)}
+          style={{
+            marginLeft: '25px',
+            height: '40px',
+            width: '62px',
+            border: '0.1px solid white',
+            boxShadow: 'none'
+          }}
+          type="primary"
+        >
+          添加
+        </Button>
       </div>
       <Table
         bordered={true}

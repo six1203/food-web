@@ -14,10 +14,9 @@ root.render(
     <ConfigProvider
       theme={{
         token: {
-          // colorPrimary: '#00b96b',
-          // colorPrimary: '#BFE4FB',
-          colorPrimary: '#696165',
-          colorFillQuaternary: '#FFB7CC',
+          // colorPrimary: '#F5DAE3',
+          colorPrimary: '#FFB7CC',
+          colorFillQuaternary: '#F5DAE3',
           colorBgBase: '#FFB7CC',
           colorBgLayout: '#FFB7CC',
           colorBgElevated: '#FFB7CC',
